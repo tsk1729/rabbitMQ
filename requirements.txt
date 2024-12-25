@@ -4,3 +4,4 @@ python-dotenv
 motor
 requests
 rfc5424-logging-handler
+uvicorn
