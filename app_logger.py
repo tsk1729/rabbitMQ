@@ -15,9 +15,14 @@ def setup_logger():
     papertrail_handler.setFormatter(
         logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
     )
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(
+        logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    )
 
     # Attach the handler to the logger
     logger.addHandler(papertrail_handler)
+    logger.addHandler(console_handler)
 
     return logger
 logger = setup_logger()
