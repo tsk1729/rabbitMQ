@@ -50,7 +50,8 @@ async def reply_to_comment(comment_id: str, message: str, access_token: str):
 
 async def private_message_to_comment(comment_id,message,profile_id,token):
     logger.info("Inside private_message_to_comment function")
-    url = PRIVATE_REPLY_TO_COMMENT.replace("user_id",profile_id)
+    url = PRIVATE_REPLY_TO_COMMENT.replace("{user_id}",profile_id)
+    logger.info("url {url}")
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {token}"

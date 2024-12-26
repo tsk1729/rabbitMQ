@@ -9,7 +9,7 @@ from RabbitMQ import RabbitMQSingleton
 from app_logger import logger
 from config import RABBITMQ_HOST, QUEUE_NAME
 from dto import CommentDTO
-from instagram_utils import send_message, reply_to_comment, private_message_to_comment
+from instagram_utils import  reply_to_comment, private_message_to_comment
 from mongo import repo_manager
 
 app = FastAPI()
