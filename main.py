@@ -9,7 +9,7 @@ from RabbitMQ import RabbitMQSingleton
 from app_logger import logger
 from config import RABBITMQ_HOST, QUEUE_NAME
 from dto import CommentDTO
-from instagram_utils import send_message, reply_to_comment
+from instagram_utils import send_message, reply_to_comment, private_message_to_comment
 from mongo import repo_manager
 
 app = FastAPI()
@@ -19,7 +19,7 @@ rabbitmq_instance = RabbitMQSingleton(RABBITMQ_HOST, QUEUE_NAME)
 
 
 async def process_message(message):
-    logger.debug(f"Processing incoming message: {message}")
+    logger.info(f"Processing incoming message: {message}")
     message = CommentDTO(**message)
     subscriber = await repo_manager.paid_subscribers.read({"profile_id": message.post_owner_id})
     logger.info("Subscriber found: {}".format(subscriber))
@@ -48,10 +48,11 @@ async def process_message(message):
                 await reply_to_comment(comment_id, reply_comment, token)
                 logger.info("Ended reply_to_comment function")
                 logger.info(
-                    f"Calling send_message with sender_id ,receiver_id ,reply_message and token : {sender_id},{receiver_id},{reply_message},{token}")
-                await send_message(sender_id, receiver_id, reply_message, token)
-                logger.info("Ended send_message function")
-                logger.debug(f"Reply sent to comment: {comment_id}")
+                    f"Calling private_message_to_comment function with parameters comment_id, reply_message, "
+                    f"sender_id and token : {comment_id},{reply_message},{sender_id},{token}")
+                await private_message_to_comment(comment_id, reply_message,sender_id,token)
+                logger.info("Ended private_message_to_comment  function")
+                logger.info(f"Reply sent to comment: {comment_id}")
                 time.sleep(1)
 
 
@@ -70,7 +71,7 @@ async def consume_messages(rabbitmq_singleton: RabbitMQSingleton, process_messag
                 try:
                     decoded_body = message.body.decode('utf-8')
                     json_body = json.loads(decoded_body)
-                    logger.debug(f"Message received: {json_body}")
+                    logger.info(f"Message received: {json_body}")
                     await process_message_callback(json_body)
                 except json.JSONDecodeError:
                     logger.error(f"Error decoding JSON from message: {message.body}")

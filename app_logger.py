@@ -13,11 +13,15 @@ def setup_logger():
     )
 
     papertrail_handler.setFormatter(
-        logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+        logging.Formatter(
+            "%(asctime)s - %(name)s - %(levelname)s - %(pathname)s:%(lineno)d - %(message)s"
+        )
     )
     console_handler = logging.StreamHandler()
     console_handler.setFormatter(
-        logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+        logging.Formatter(
+            "%(asctime)s - %(name)s - %(levelname)s - %(pathname)s:%(lineno)d - %(message)s"
+        )
     )
 
     # Attach the handler to the logger
