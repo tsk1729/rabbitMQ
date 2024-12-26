@@ -30,6 +30,7 @@ async def process_message(message):
             {"_id": user_id, "posts.post_id": message.post_id},
             {"posts.$": 1}
         )
+        logger.info("Webhook found: {}".format(webhook))
         if webhook:
             logger.info(f"Webhook found for post_id: {message.post_id} is {webhook}")
             sub_string = webhook['posts'][0]['sub_string']
