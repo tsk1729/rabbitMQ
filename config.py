@@ -7,3 +7,5 @@ GET_MEDIA_LIST = "https://graph.instagram.com/v21.0/{user_id}/media"
 GET_MEDIA_INFO = "https://graph.instagram.com/v21.0/{media_id}"
 REPLY_TO_COMMENT = "https://graph.instagram.com/v21.0/{comment_id}/replies"
 SEND_MESSAGE = "https://graph.instagram.com/v21.0/{sender_id}/messages"
+PRIVATE_REPLY_TO_COMMENT = "https://graph.instagram.com/{user_id}/messages"
+
