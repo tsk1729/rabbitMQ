@@ -36,7 +36,7 @@ async def process_message(message):
             sub_string = webhook['posts'][0]['sub_string']
             if sub_string.lower() in message.text_message.lower():
                 logger.info(f"Substring found in message: {sub_string}")
-                reply_comment = webhook['posts'][0]['bot_message']
+                reply_comment = webhook['posts'][0]['bot_comment']
                 logger.info("Reply comment: {}".format(reply_comment))
                 reply_message = webhook['posts'][0]['bot_message']
                 logger.info("Reply message: {}".format(reply_message))
