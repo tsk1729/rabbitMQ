@@ -21,7 +21,7 @@ rabbitmq_instance = RabbitMQSingleton(RABBITMQ_HOST, QUEUE_NAME)
 async def process_message(message):
     logger.info(f"Processing incoming message: {message}")
     message = CommentDTO(**message)
-    subscriber = await repo_manager.paid_subscribers.read({"profile_id": message.post_owner_id})
+    subscriber = await repo_manager.token_base.read({"profile_id": message.post_owner_id})
     logger.info("Subscriber found: {}".format(subscriber))
     if subscriber:
         logger.info("Subscriber exists")
