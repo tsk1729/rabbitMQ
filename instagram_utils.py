@@ -49,16 +49,16 @@ async def reply_to_comment(comment_id: str, message: str, access_token: str):
         raise HTTPException(status_code=400, detail=str(e))
 
 
-async def  is_url(text):
+def  is_url(text):
     parsed_url = urlparse(text)
     logger.info("Parsed url:",parsed_url)
     logger.info("Result:",bool(parsed_url.netloc))
     return bool(parsed_url.netloc)
 
 
-async def generate_payload(text, comment_id):
+def generate_payload(text, comment_id):
     logger.info("Inside Genrate Payload")
-    flag = await is_url(text)
+    flag =  is_url(text)
     if flag:
         payload = {
             "recipient": {
