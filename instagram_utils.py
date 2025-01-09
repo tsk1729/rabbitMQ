@@ -103,7 +103,7 @@ async def private_message_to_comment(comment_id,message,profile_id,token):
         "Content-Type": "application/json",
         "Authorization": f"Bearer {token}"
     }
-    payload = await generate_payload(message,comment_id)
+    payload =  generate_payload(message,comment_id)
     logger.info("Calling send API with headers: {} payload:{} ".format(headers, payload))
     try:
         response = requests.post(url, json=payload, headers=headers)
