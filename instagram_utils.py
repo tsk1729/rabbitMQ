@@ -57,6 +57,7 @@ async def  is_url(text):
 
 
 async def generate_payload(text, comment_id):
+    logger.info("Inside Genrate Payload")
     flag = await is_url(text)
     if flag:
         payload = {
@@ -90,6 +91,7 @@ async def generate_payload(text, comment_id):
             "recipient": {"comment_id": comment_id},
             "message": {"text": text}
         }
+    logger.info(f"Exiting generating payload with {payload}")
     return payload
 
 
